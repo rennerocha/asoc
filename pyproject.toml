@@ -11,6 +11,9 @@ fastapi = "^0.54.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+requests = "^2.23.0"
+pidb = "^0.0.2"
+ipdb = "^0.13.2"
 
 [build-system]
 requires = ["poetry>=0.12"]
