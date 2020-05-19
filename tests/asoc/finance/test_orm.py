@@ -1,12 +1,7 @@
 import datetime
-import pytest
 from decimal import Decimal
 
 from asoc.finance.models import Account, Entry
-from sqlalchemy.orm import sessionmaker, clear_mappers
-from asoc.api import get_session
-
-from asoc.finance.db import start_mappers
 
 
 def test_can_add_account_with_mapping(session):

@@ -1,9 +1,16 @@
-from sqlalchemy import Table, MetaData, Column, Integer, String
-from sqlalchemy import Table, Column, Numeric, Integer, String, Date, ForeignKey
+from sqlalchemy import (
+    Column,
+    Date,
+    ForeignKey,
+    Integer,
+    MetaData,
+    Numeric,
+    String,
+    Table,
+)
 from sqlalchemy.orm import mapper, relationship
 
 from asoc.finance.models import Account, Book, Entry
-
 
 metadata = MetaData()
 

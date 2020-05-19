@@ -1,10 +1,8 @@
 from fastapi import FastAPI
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from asoc.finance.db import metadata, start_mappers
-
 
 engine = create_engine(
     "sqlite:////home/renne/projects/asoc/test.db",

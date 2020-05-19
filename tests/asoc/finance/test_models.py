@@ -1,5 +1,7 @@
 import datetime
+
 import pytest
+
 from asoc.finance.models import Account, Entry, InvalidEntry, InvalidInitialBalance
 
 
@@ -69,7 +71,7 @@ def test_account_may_receive_initial_balance():
 
 def test_account_may_not_receive_negative_initial_balance():
     with pytest.raises(InvalidInitialBalance):
-        account = Account(name="Test Account", initial_balance=-100)
+        _ = Account(name="Test Account", initial_balance=-100)
 
 
 def test_able_to_transfer_funds_between_accounts():

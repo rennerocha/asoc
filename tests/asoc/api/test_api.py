@@ -1,11 +1,8 @@
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, clear_mappers
 
-from asoc.api import create_app, get_session
-from asoc.finance.db import Book, start_mappers, metadata
+from asoc.api import create_app
+from asoc.finance.db import Book
 
 
 @pytest.fixture
