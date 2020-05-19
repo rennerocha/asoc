@@ -6,10 +6,8 @@ from sqlalchemy.orm import sessionmaker
 from asoc.finance.db import metadata, start_mappers
 
 
-start_mappers()
-
 engine = create_engine(
-    "sqlite:///",
+    "sqlite:////home/renne/projects/asoc/test.db",
     connect_args={"check_same_thread": False}
 )
 get_session = sessionmaker(
@@ -27,11 +25,15 @@ def get_db():
         db.close()
 
 
-def create_app():
+def create_app(testing=False):
     from asoc.api.routers import router
+
+    if not testing:
+        start_mappers()
+
+    metadata.create_all(engine)
 
     app = FastAPI()
     app.include_router(router)
 
-    metadata.create_all(engine)
     return app
