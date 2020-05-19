@@ -8,13 +8,9 @@ from asoc.finance.db import metadata, start_mappers
 
 engine = create_engine(
     "sqlite:////home/renne/projects/asoc/test.db",
-    connect_args={"check_same_thread": False}
+    connect_args={"check_same_thread": False},
 )
-get_session = sessionmaker(
-    autocommit=False,
-    autoflush=False,
-    bind=engine
-)
+get_session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def get_db():

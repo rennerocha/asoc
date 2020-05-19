@@ -19,9 +19,7 @@ class Account:
         if initial_balance != 0:
             if initial_balance < 0:
                 raise InvalidInitialBalance
-            self.entries.append(
-                Entry("Initial Balance", initial_balance)
-            )
+            self.entries.append(Entry("Initial Balance", initial_balance))
 
     def __eq__(self, other):
         return self.name == other.name

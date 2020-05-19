@@ -8,7 +8,6 @@ from asoc.api import create_app, get_session
 from asoc.finance.db import Book, start_mappers, metadata
 
 
-
 @pytest.fixture
 def app(in_memory_db):
     app = create_app(testing=True)
