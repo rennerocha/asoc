@@ -19,5 +19,7 @@ def in_memory_db():
 @pytest.fixture
 def session(in_memory_db):
     start_mappers()
-    yield sessionmaker(bind=in_memory_db)()
+    db = sessionmaker(bind=in_memory_db)()
+    yield db
     clear_mappers()
+    db.close()
