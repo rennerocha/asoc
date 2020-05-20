@@ -27,6 +27,7 @@ accounts = Table(
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
     Column("name", String(255)),
+    Column("initial_balance", Numeric(10, 2)),
 )
 
 

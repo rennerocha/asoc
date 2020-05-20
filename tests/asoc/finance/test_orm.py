@@ -13,6 +13,17 @@ def test_can_add_account_with_mapping(session):
     assert rows == [("Test Account",)]
 
 
+def test_can_add_account_with_initial_balance(session):
+    account = Account(name="Test Account", initial_balance=42.01)
+    session.add(account)
+    session.commit()
+
+    balance = session.execute(
+        'SELECT initial_balance FROM "accounts" WHERE name = "Test Account"'
+    ).fetchone()
+    assert balance == (42.01,)
+
+
 def test_can_retrieve_account_with_mapping(session):
     session.execute(
         """INSERT INTO accounts (name) VALUES

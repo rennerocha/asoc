@@ -13,13 +13,12 @@ class InvalidInitialBalance(Exception):
 
 class Account:
     def __init__(self, name, initial_balance=0):
-        self.name = name
-        self.entries = []
+        if initial_balance < 0:
+            raise InvalidInitialBalance
 
-        if initial_balance != 0:
-            if initial_balance < 0:
-                raise InvalidInitialBalance
-            self.entries.append(Entry("Initial Balance", initial_balance))
+        self.name = name
+        self.initial_balance = initial_balance
+        self.entries = []
 
     def __eq__(self, other):
         return self.name == other.name
@@ -36,7 +35,8 @@ class Account:
 
     @property
     def balance(self):
-        return sum([entry.amount for entry in self.entries])
+        entries_balance = sum([entry.amount for entry in self.entries])
+        return self.initial_balance + entries_balance
 
 
 class Book:
