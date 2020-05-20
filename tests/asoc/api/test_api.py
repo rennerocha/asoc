@@ -26,9 +26,11 @@ def book(session):
 
 
 def test_api_version(client):
+    from asoc import __version__
+
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
+    assert response.json() == {"version": __version__}
 
 
 def test_database_access(client, book, session):
