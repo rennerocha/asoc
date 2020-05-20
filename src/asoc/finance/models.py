@@ -23,6 +23,9 @@ class Account:
     def __eq__(self, other):
         return self.name == other.name
 
+    def __hash__(self):
+        return hash(self.name)
+
     def register(self, entry):
         new_balance = self.balance + entry.amount
         if new_balance < 0:
@@ -42,6 +45,14 @@ class Account:
 class Book:
     def __init__(self, name):
         self.name = name
+        self.accounts = set()
+
+    def register(self, account):
+        self.accounts.add(account)
+
+    @property
+    def balance(self):
+        return sum(account.balance for account in list(self.accounts))
 
 
 @dataclass(unsafe_hash=True)
