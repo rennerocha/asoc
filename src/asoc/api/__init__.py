@@ -1,14 +1,20 @@
+from dynaconf import settings
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from asoc.finance.db import metadata, start_mappers
 
-engine = create_engine(
-    "sqlite:////home/renne/projects/asoc/test.db",
-    connect_args={"check_same_thread": False},
-)
-get_session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+def get_db_engine():
+    return create_engine(
+        settings.DATABASE_URI, connect_args={"check_same_thread": False},
+    )
+
+
+def get_session():
+    engine = get_db_engine()
+    return sessionmaker(autocommit=False, autoflush=False, bind=engine)()
 
 
 def get_db():
@@ -25,6 +31,7 @@ def create_app(testing=False):
     if not testing:
         start_mappers()
 
+    engine = get_db_engine()
     metadata.create_all(engine)
 
     app = FastAPI()

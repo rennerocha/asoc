@@ -120,6 +120,7 @@ venv.bak/
 pip-selfcheck.json
 
 ### VisualStudioCode ###
+.vscode/
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -131,3 +132,6 @@ pip-selfcheck.json
 .history
 
 # End of https://www.gitignore.io/api/python,virtualenv,visualstudiocode
+
+settings.toml
+.
