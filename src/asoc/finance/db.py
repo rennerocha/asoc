@@ -18,6 +18,7 @@ books = Table(
     "books",
     metadata,
     Column("id", Integer, primary_key=True),
+    Column("code", String(255)),
     Column("name", String(255)),
 )
 

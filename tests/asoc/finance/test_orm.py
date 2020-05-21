@@ -5,6 +5,16 @@ from decimal import Decimal
 from asoc.finance.models import Account, Book, Entry
 
 
+def test_can_add_book_with_mapping(session):
+    book_code = uuid.uuid4().hex
+    book = Book(code=book_code, name="New Book")
+    session.add(book)
+    session.commit()
+
+    rows = list(session.execute('SELECT code, name FROM "books"'))
+    assert rows == [(book_code, "New Book",)]
+
+
 def test_can_add_account_with_mapping(session):
     account = Account(name="Test Account")
     session.add(account)
