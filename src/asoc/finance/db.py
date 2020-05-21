@@ -26,6 +26,7 @@ accounts = Table(
     "accounts",
     metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("book_id", Integer, ForeignKey("books.id")),
     Column("name", String(255)),
     Column("initial_balance", Numeric(10, 2)),
 )
@@ -43,7 +44,13 @@ entries = Table(
 
 
 def start_mappers():
-    mapper(Book, books)
+    mapper(
+        Book,
+        books,
+        properties={
+            "accounts": relationship(Account, backref="book", collection_class=set)
+        },
+    )
     mapper(Entry, entries)
     mapper(
         Account,

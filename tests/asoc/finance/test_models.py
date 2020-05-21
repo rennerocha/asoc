@@ -12,8 +12,15 @@ from asoc.finance.models import (
 
 
 @pytest.fixture
-def account():
-    return Account(name="Test Account")
+def book():
+    return Book(name="Test Book")
+
+
+@pytest.fixture
+def account(book):
+    account = Account(name="Test Account")
+    book.register(account)
+    return account
 
 
 def test_account_with_no_entries_has_balance_zero(account):

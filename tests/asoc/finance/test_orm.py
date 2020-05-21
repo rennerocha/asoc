@@ -1,7 +1,7 @@
 import datetime
 from decimal import Decimal
 
-from asoc.finance.models import Account, Entry
+from asoc.finance.models import Account, Book, Entry
 
 
 def test_can_add_account_with_mapping(session):
@@ -70,3 +70,15 @@ def test_entry_mapper_can_save_lines(session):
 
     rows = list(session.execute('SELECT description, amount FROM "entries"'))
     assert rows == [("Test Entry", 10)]
+
+
+def test_can_add_book_with_with_mapping(session):
+    book = Book(name="Test Book")
+    account = Account(name="Test Account")
+    book.register(account)
+
+    session.add(book)
+    session.commit()
+
+    account = session.query(Account).one()
+    assert account.book == book
