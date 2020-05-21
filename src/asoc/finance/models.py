@@ -43,9 +43,13 @@ class Account:
 
 
 class Book:
-    def __init__(self, name):
+    def __init__(self, code, name):
+        self.code = code
         self.name = name
         self.accounts = set()
+
+    def __eq__(self, other):
+        return self.code == other.code
 
     def register(self, account):
         self.accounts.add(account)

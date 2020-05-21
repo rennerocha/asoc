@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from decimal import Decimal
 
 from asoc.finance.models import Account, Book, Entry
@@ -73,7 +74,7 @@ def test_entry_mapper_can_save_lines(session):
 
 
 def test_can_add_book_with_with_mapping(session):
-    book = Book(name="Test Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     account = Account(name="Test Account")
     book.register(account)
 

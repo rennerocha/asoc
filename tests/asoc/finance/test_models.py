@@ -1,4 +1,5 @@
 import datetime
+import uuid
 
 import pytest
 
@@ -13,7 +14,7 @@ from asoc.finance.models import (
 
 @pytest.fixture
 def book():
-    return Book(name="Test Book")
+    return Book(code=uuid.uuid4().hex, name="Test Book")
 
 
 @pytest.fixture
@@ -98,30 +99,30 @@ def test_able_to_transfer_funds_between_accounts():
 
 
 def test_new_book_has_no_balance():
-    book = Book(name="New Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     assert book.balance == 0
 
 
 def test_new_book_has_no_accounts():
-    book = Book(name="New Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     assert book.accounts == set()
 
 
 def test_can_register_account_in_book(account):
-    book = Book(name="New Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     book.register(account)
     assert account in book.accounts
 
 
 def test_can_register_account_in_book_only_once(account):
-    book = Book(name="New Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     book.register(account)
     book.register(account)
     assert len(book.accounts) == 1
 
 
 def test_book_balance_is_sum_of_account_balances():
-    book = Book(name="New Book")
+    book = Book(code=uuid.uuid4().hex, name="New Book")
     account_1 = Account(name="Test Account 1", initial_balance=10)
     account_2 = Account(name="Test Account 2", initial_balance=20)
 
@@ -129,3 +130,12 @@ def test_book_balance_is_sum_of_account_balances():
     book.register(account_2)
 
     assert book.balance == account_1.balance + account_2.balance
+
+
+def test_book_comparison():
+    book_1 = Book(code="UNIQUE_CODE_1", name="Book Name")
+    book_2 = Book(code="UNIQUE_CODE_1", name="Book Name")
+    book_3 = Book(code="UNIQUE_CODE_2", name="Book Name")
+
+    assert book_1 == book_2
+    assert book_1 != book_3

@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -18,7 +20,7 @@ def client(app):
 
 @pytest.fixture
 def book(session):
-    new_book = Book(name="LHC 2020")
+    new_book = Book(code=uuid.uuid4().hex, name="New Book")
     session.add(new_book)
     session.commit()
     session.refresh(new_book)
@@ -34,12 +36,6 @@ def test_api_version(client):
 
 
 def test_database_access(client, book, session):
-    response = client.get("/books")
-    assert response.status_code == 200
-    assert len(response.json()) == 1
-
-
-def test_database_access_again(client, book, session):
     response = client.get("/books")
     assert response.status_code == 200
     assert len(response.json()) == 1
